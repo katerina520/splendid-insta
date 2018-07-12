@@ -33,22 +33,30 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class HomeActivity extends AppCompatActivity {
 
 
-    private static final String imagePath = "/storage/emulated/0/DCIM/Camera/IMG_20180710_152237.jpg";// TODO
-
-    private EditText descriptionInput;
-    private Button createButton;
-    private Button refreshButton;
-
+    @BindView(R.id.descriptionInput) EditText descriptionInput;
+    @BindView(R.id.createButton) Button createButton;
+    @BindView(R.id.refreshButton) Button refreshButton;
+    // @BindView(R.id.btnLogout) Button btnLogout;
+    @BindView(R.id.postPhoto) Button postPhoto;
+    @BindView(R.id.ivPreview) ImageView ivPreview;
 
     public final String APP_TAG = "splendid_insta";
     public String TAG = "HOMEACT";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo.jpg";
+    private final static int CAM_REQUEST = 1313;
     File photoFile;
 
 
@@ -56,35 +64,98 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
-        descriptionInput = findViewById(R.id.descriptionInput);
-        createButton = findViewById(R.id.createButton);
-        refreshButton = findViewById(R.id.refreshButton);
+    }
 
-        createButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                final String description = descriptionInput.getText().toString();
-                final ParseUser user = ParseUser.getCurrentUser();
+    @OnClick(R.id.postPhoto)
+    public void onPost() {
+        final String description = descriptionInput.getText().toString();
+        final ParseUser user = ParseUser.getCurrentUser();
 
-                if (isStoragePermissionGranted()) {
-                    final File file = new File(imagePath);
-                    final ParseFile parseFile = new ParseFile(file);
-                    createPost(description, parseFile, user);
-                }
+        if (photoFile!=null && !description.isEmpty()) {
+            final ParseFile parseFile = new ParseFile(photoFile);
+            createPost(description, parseFile, user);
+        } else {
+            Toast.makeText(this, "Please create a post first", Toast.LENGTH_LONG).show();
+        }
 
+    }
+
+    @OnClick(R.id.createButton)
+    public void onLaunchCamera(View view) {
+        // create Intent to take a picture and return control to the calling application
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Create a File reference to access to future access
+        photoFile = getPhotoFileUri();
+
+        // wrap File object into a content provider
+        // required for API >= 24
+        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+        Uri fileProvider = FileProvider.getUriForFile(HomeActivity.this, "com.codepath.fileprovider", photoFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // Start the image capture intent to take photo
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
+    }
+
+
+    public File getPhotoFileUri() {
+        // Get safe storage directory for photos
+        // Use `getExternalFilesDir` on Context to access package-spniecific directories.
+        // This way, we don't need to request external read/write runtime permissions.
+        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d(APP_TAG, "failed to create directory");
+        }
+
+        // Return the file target for the photo based on filename
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "IMG_" + timeStamp;
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = new File(mediaStorageDir.getPath() + File.separator + imageFileName);
+        return image;
+
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // by this point we have the camera photo on disk
+                // Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                // RESIZE BITMAP, see section below
+                // Load the taken image into a preview
+
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+
+
+
+
+                // ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
+                ivPreview.setImageBitmap(takenImage);
+            } else { // Result was a failure
+                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
+    }
 
 
-        refreshButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                loadTopPosts();
-            }
-        });
+
+    @OnClick(R.id.refreshButton)
+    public void refresh(View view) {
+        loadTopPosts();
+    }
 
 
 
@@ -102,7 +173,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-    }
+
 
 
     private void createPost(String description, ParseFile imageFile, ParseUser user) {
@@ -111,14 +182,12 @@ public class HomeActivity extends AppCompatActivity {
         newPost.setImage(imageFile);
         newPost.setUser(user);
 
-        final View view = new View(this);
-
         newPost.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
                     Log.d("HomeActivity", "Create psot success!");
-                    onLaunchCamera(view);
+                    // onLaunchCamera(view);
 
 
                 } else {
@@ -152,71 +221,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-   public void onLaunchCamera(View view) {
-        // create Intent to take a picture and return control to the calling application
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference to access to future access
-        // photoFile = getPhotoFileUri(photoFileName);
-
-        // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        // Uri fileProvider = FileProvider.getUriForFile(HomeActivity.this, "com.codepath.fileprovider", photoFile);
-        // intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-        }
-    }
-
-
-    // Returns the File for a photo stored on disk given the fileName
-    public File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-spniecific directories.
-        // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(APP_TAG, "failed to create directory");
-        }
-
-        // Return the file target for the photo based on filename
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        return file;
-
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // by this point we have the camera photo on disk
-                // Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // RESIZE BITMAP, see section below
-                // Load the taken image into a preview
-
-                Bundle extras = data.getExtras();
-                Bitmap takenImage = (Bitmap) extras.get("data");
-
-
-
-                ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
-                ivPreview.setImageBitmap(takenImage);
-            } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-
-
+    // is not used at the momet
     public  boolean isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -235,6 +240,7 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     }
+
 
 
 
