@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/instagram_background"
     tools:context=".MainActivity">
 
     <EditText
@@ -37,8 +38,30 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordInput"
         android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
         android:text="Log In"
+        android:textColor="@color/design_default_color_primary_dark"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="265dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="255dp"
+        android:layout_height="111dp"
+        android:layout_above="@+id/usernameInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-151dp"
+        app:srcCompat="@drawable/nux_dayone_landing_logo" />
+
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="162dp"
+        android:background="@color/colorPrimary"
+        android:text="SIGN UP"
+        android:textColor="@color/colorAccent" />
 
 </RelativeLayout>

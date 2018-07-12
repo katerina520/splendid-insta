@@ -3,7 +3,6 @@
     package="com.example.splendidavocado.splendid_insta">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -25,7 +24,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- make sure within the application tag, otherwise app will crash with XmlResourceParser errors -->
         <provider
@@ -38,6 +37,7 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>
