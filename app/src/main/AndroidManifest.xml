@@ -38,7 +38,9 @@
         </provider>
 
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".TimelineActivity"></activity>
+        <activity android:name=".TimelineActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -26,5 +26,14 @@
         android:layout_centerHorizontal="true"
         app:srcCompat="@color/colorPrimary" />
 
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="297dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ivProfileImage"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_marginTop="0dp"
+        android:text="TextView" />
+
 
 </RelativeLayout>

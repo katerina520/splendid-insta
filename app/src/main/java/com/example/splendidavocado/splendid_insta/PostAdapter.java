@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.splendidavocado.splendid_insta.model.Post;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
@@ -60,6 +62,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         // populate the views according to data
         holder.tvUsername.setText(post.getUser().getUsername().toString());
+        holder.tvDescription.setText(post.getDescription().toString());
 
 
        // int radius = 30; // corner radius, higher value = more rounded
@@ -83,10 +86,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // public ImageView ivProfileImage;
         public TextView tvUsername;
         public ImageView ivProfileImage;
+        public TextView tvDescription;
 
 
         public ViewHolder(View itemView) {
@@ -97,42 +101,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
 
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
+            tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
 
-
-
-          /*  tvScreenName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String userScreenName = tvScreenName.getText().toString();
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://twitter.com/"+userScreenName));
-                    view.getContext().startActivity(browserIntent);
-
-
-                }
-            });
-
-            reply.setOnClickListener(new View.OnClickListener() {
-
-
-                @Override
-                public void onClick(View view) {
-                    Intent replyIntent = new Intent (view.getContext(), ComposeActivity.class );
-                    String userScreenName = tvScreenName.getText().toString();
-                    replyIntent.putExtra("userScreenName", userScreenName);
-                    String tweetText = tvBody.getText().toString();
-                    //  replyIntent.putExtra("tweetText", tweetText);
-                    view.getContext().startActivity(replyIntent);
-
-
-
-                }
-            });
-
-            */
-
+            itemView.setOnClickListener(this);
 
         }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = mPosts.get(position);
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                context.startActivity(intent);
+            }
+        }
+
+
     }
 
 
