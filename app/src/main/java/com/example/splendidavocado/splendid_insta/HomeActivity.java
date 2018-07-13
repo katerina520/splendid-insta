@@ -77,6 +77,10 @@ public class HomeActivity extends AppCompatActivity {
         if (photoFile!=null && !description.isEmpty()) {
             final ParseFile parseFile = new ParseFile(photoFile);
             createPost(description, parseFile, user);
+            Toast.makeText(this, "Your post is uploaded successfully!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
+            startActivity(intent);
+
         } else {
             Toast.makeText(this, "Please create a post first", Toast.LENGTH_LONG).show();
         }
@@ -152,10 +156,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-    @OnClick(R.id.refreshButton)
-    public void refresh(View view) {
-        loadTopPosts();
-    }
+  //  @OnClick(R.id.refreshButton)
+   // public void refresh(View view) {
+   //     loadTopPosts();
+   // }
 
 
 
@@ -187,7 +191,7 @@ public class HomeActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     Log.d("HomeActivity", "Create psot success!");
-                    // onLaunchCamera(view);
+
 
 
                 } else {
@@ -197,7 +201,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void loadTopPosts() {
+   /* private void loadTopPosts() {
 
         final Post.Query postsQuery = new Post.Query();
         postsQuery
@@ -220,6 +224,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+
+    */
 
     // is not used at the momet
     public  boolean isStoragePermissionGranted() {

@@ -37,7 +37,8 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".TimelineActivity"></activity>
     </application>
 
 </manifest>
