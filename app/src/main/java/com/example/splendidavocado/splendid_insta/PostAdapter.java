@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.splendidavocado.splendid_insta.model.Post;
 
 import java.util.List;
@@ -64,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
        // int radius = 30; // corner radius, higher value = more rounded
       //  int margin = 10; // crop margin, set to 0 for corners with no crop
 
-       // Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
+        Glide.with(context).load(post.getImage().getUrl()).into(holder.ivProfileImage);
 
         // leaving this lines here because MyGlideApp doesn't properly work but maybe it will
         // in the future I have my hopes
@@ -85,13 +86,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // public ImageView ivProfileImage;
         public TextView tvUsername;
+        public ImageView ivProfileImage;
 
 
         public ViewHolder(View itemView) {
 
             super(itemView);
             // perform findViewById lookup
-           //  ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+
 
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
 

@@ -31,13 +31,10 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
-        // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
+
                 fetchTimelineAsync(0);
             }
         });
@@ -88,7 +85,7 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void done(List<Post> objects, ParseException e) {
                 if (e==null){
-                    for (int i = objects.size()-1; i >=0; i--) {
+                    for (int i = 0; i < objects.size()-1; i++) {
                         Log.d("TimelineActivity", "Post[" + i + "]" + "\nusername " + objects.get(i).getUser().getUsername());
                         Post post = objects.get(i);
                         posts.add(post);

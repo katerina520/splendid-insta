@@ -10,13 +10,21 @@
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="369dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
         android:text="user"
         android:textColor="#000000"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/tvUserName"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@color/colorPrimary" />
 
 
 </RelativeLayout>
