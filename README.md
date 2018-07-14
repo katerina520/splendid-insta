@@ -48,7 +48,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/nXXnRyJ.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/smoky-owl/splendid-insta/blob/master/3j7LdmYUMo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='https://github.com/smoky-owl/splendid-insta/blob/master/uHUkgQEDXx.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
