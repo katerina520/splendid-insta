@@ -31,8 +31,8 @@ The following **optional** features are implemented:
    - [ ] Tapping on a post's username or profile photo goes to that user's profile page
 - [ ] User can comment on a post and see all comments for each post in the post details screen.
 - [ ] User can like a post and see number of likes for each post in the post details screen.
-- [ ] Create a custom Camera View on your phone.
-- [ ] Run your app on your phone and use the camera to take the photo
+- [x] Create a custom Camera View on your phone.
+- [x] Run your app on your phone and use the camera to take the photo
 
 
 The following **additional** features are implemented:
@@ -48,7 +48,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/smoky-owl/splendid-insta/blob/master/ZHiu1fMycH.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/nXXnRyJ.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='https://github.com/smoky-owl/splendid-insta/blob/master/uHUkgQEDXx.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
