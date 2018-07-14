@@ -16,35 +16,25 @@ import java.sql.Time;
 
 public class UserActivity extends AppCompatActivity {
 
-
     private Button logoutBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
-
-
         logoutBtn = findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-
-
                 Intent intent3 = new Intent(UserActivity.this, MainActivity.class);
                 startActivity(intent3);
-
-
-
-
             }
         });
     }
@@ -60,30 +50,21 @@ public class UserActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.miCreate:
 
+            case R.id.miCreate:
                 Intent intent = new Intent(UserActivity.this, HomeActivity.class);
                 startActivity(intent);
-
                 return true;
-
-
 
             case R.id.miHome:
-
                 Intent intent2 = new Intent(UserActivity.this, TimelineActivity.class);
                 startActivity(intent2);
-
                 return true;
-
-
 
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
 }

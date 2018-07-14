@@ -22,25 +22,19 @@ import java.util.List;
 public class TimelineActivity extends AppCompatActivity {
 
     private Post.Query postQuery;
-
     PostAdapter postAdapter;
-
     RecyclerView rvPosts;
     private SwipeRefreshLayout swipeContainer;
     ArrayList<Post> posts;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
-
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 fetchTimelineAsync(0);
             }
         });
@@ -49,38 +43,20 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
         postQuery = new Post.Query();
         rvPosts = (RecyclerView) findViewById(R.id.rvPosts);
-
         posts = new ArrayList<>();
-
         postAdapter = new PostAdapter(posts);
-
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
         rvPosts.setAdapter(postAdapter);
-
         Log.d("TimelineActivity", "see some timeline idk");
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         toolbar.setTitle("");
-
         populateTimeline();
-
-        
-
     }
 
-
     public void fetchTimelineAsync(int page) {
-        // Send the network request to fetch the updated data
-        // `client` here is an instance of Android Async HTTP
-        // getHomeTimeline is an example endpoint.
-        //postQuery.getTop();
         populateTimeline();
         postAdapter.clear();
         postAdapter.addAll(posts);
@@ -88,7 +64,6 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateTimeline() {
-
         final Post.Query postsQuery = new Post.Query();
         postsQuery.getTop().withUser();
         postsQuery.findInBackground(new FindCallback<Post>() {
@@ -106,8 +81,6 @@ public class TimelineActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -121,30 +94,21 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.miCreate:
 
+            case R.id.miCreate:
                 Intent intent = new Intent(TimelineActivity.this, HomeActivity.class);
                 startActivity(intent);
-
                 return true;
 
-
-
             case R.id.miUser:
-
                 Intent intent2 = new Intent(TimelineActivity.this, UserActivity.class);
                 startActivity(intent2);
-
                 return true;
 
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
-
-
 }

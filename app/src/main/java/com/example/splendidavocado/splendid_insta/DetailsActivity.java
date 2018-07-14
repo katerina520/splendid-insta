@@ -19,16 +19,13 @@ import org.parceler.Parcels;
 
 public class DetailsActivity extends AppCompatActivity {
 
-
-    Post post;
-    public ImageView ivImage;
-    public TextView tvDetails;
-    public TextView tvTimestamp;
-    public TextView tvUser;
-
-    Post.Query query = new Post.Query();
-
-    Context context;
+    private Post post;
+    private ImageView ivImage;
+    private TextView tvDetails;
+    private TextView tvTimestamp;
+    private TextView tvUser;
+    private Post.Query query = new Post.Query();
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +37,18 @@ public class DetailsActivity extends AppCompatActivity {
         toolbar.setTitle("");
         toolbar.setSubtitle("");
 
-
         ivImage = findViewById(R.id.ivImage);
         tvDetails= findViewById(R.id.tvDetails);
         tvTimestamp = findViewById(R.id.tvTimestamp);
         tvUser= findViewById(R.id.tvUser);
-
         context = getApplicationContext();
-
         post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
-
-        Glide.with(context).load(post.getImage().getUrl())
+        Glide.with(context)
+                .load(post.getImage().getUrl())
                 .into(ivImage);
 
         tvDetails.setText(post.getDescription());
         tvUser.setText(post.getUser().getUsername().toString());
-
         tvTimestamp.setText(post.getCreatedAt().toString());
 
     }
@@ -71,26 +64,20 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.miHome:
 
+            case R.id.miHome:
                 Intent intent = new Intent(DetailsActivity.this, TimelineActivity.class);
                 startActivity(intent);
-
                 return true;
 
-
             case R.id.miUser:
-
                 Intent intent2 = new Intent(DetailsActivity.this, UserActivity.class);
                 startActivity(intent2);
-
                 return true;
 
             case R.id.miCreate:
-
                 Intent intent3 = new Intent(DetailsActivity.this, HomeActivity.class);
                 startActivity(intent3);
-
                 return true;
 
             default:

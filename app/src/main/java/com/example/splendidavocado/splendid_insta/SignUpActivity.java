@@ -20,12 +20,10 @@ import butterknife.OnClick;
 
 public class SignUpActivity extends AppCompatActivity {
 
-
     @BindView(R.id.etusername) EditText etusername;
     @BindView(R.id.etpassword) EditText etpassword;
     @BindView(R.id.etemail) EditText etemail;
     @BindView(R.id.createBtn) Button createBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +47,18 @@ public class SignUpActivity extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(com.parse.ParseException e) {
-
                 if (e == null ) {
                     backToLogin();
-
-
                 } else {
                     Log.e("CreateAccountActivity", "Create account failure");
                     e.printStackTrace();
                 }
             }
         });
-
-
     }
 
     private void backToLogin() {
         Toast.makeText(this, "Sign up succcesful!", Toast.LENGTH_LONG).show();
         finish();
-
     }
-
-
-
-
 }

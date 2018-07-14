@@ -15,55 +15,40 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private EditText usernameInput;
     private EditText passwordInput;
     private Button loginBtn;
     private Button signupBtn;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ParseUser currentUser = ParseUser.getCurrentUser();
-
         if (currentUser != null) {
             final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-
-        }
-
-
-        else {
+        } else {
             usernameInput = findViewById(R.id.usernameInput);
             passwordInput = findViewById(R.id.passwordInput);
             loginBtn = findViewById(R.id.loginBtn);
             signupBtn = findViewById(R.id.signupBtn);
-
-
             loginBtn.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
                     final String username = usernameInput.getText().toString();
                     final String password = passwordInput.getText().toString();
-
                     login(username, password);
-
                 }
             });
 
             signupBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                     startActivity(intent);
-
                 }
             });
         }
@@ -84,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("LoginActivity", "LOgin faluire");
                     e.printStackTrace();
                 }
-
             }
         });
     }
