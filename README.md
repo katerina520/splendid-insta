@@ -50,7 +50,7 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://github.com/smoky-owl/splendid-insta/blob/master/3j7LdmYUMo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<img src='https://github.com/smoky-owl/splendid-insta/blob/master/uHUkgQEDXx.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/smoky-owl/splendid-insta/blob/master/IN6lFC7RnV.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
