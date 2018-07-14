@@ -63,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         // populate the views according to data
         holder.tvUsername.setText(post.getUser().getUsername().toString());
         holder.tvDescription.setText(post.getDescription().toString());
+        holder.tvTimestamp.setText(post.getCreatedAt().toString());
 
 
        // int radius = 30; // corner radius, higher value = more rounded
@@ -91,6 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         public TextView tvUsername;
         public ImageView ivProfileImage;
         public TextView tvDescription;
+        public TextView tvTimestamp;
 
 
         public ViewHolder(View itemView) {
@@ -102,6 +104,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
 
             itemView.setOnClickListener(this);
 

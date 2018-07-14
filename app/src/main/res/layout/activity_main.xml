@@ -36,11 +36,11 @@
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordInput"
+        android:layout_above="@+id/signupBtn"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
+        android:background="@android:color/transparent"
         android:text="Log In"
-        android:textColor="@color/design_default_color_primary_dark"
+        android:textColor="@android:color/background_light"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="265dp" />
 
@@ -60,8 +60,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="162dp"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/transparent"
         android:text="SIGN UP"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@android:color/background_light" />
 
 </RelativeLayout>
