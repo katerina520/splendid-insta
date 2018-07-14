@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -49,8 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     @BindView(R.id.descriptionInput) EditText descriptionInput;
-    @BindView(R.id.createButton) Button createButton;
-    @BindView(R.id.refreshButton) Button refreshButton;
+    @BindView(R.id.createButton) ImageButton createButton;
     // @BindView(R.id.btnLogout) Button btnLogout;
     @BindView(R.id.postPhoto) Button postPhoto;
     @BindView(R.id.ivPreview) ImageView ivPreview;
